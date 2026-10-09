@@ -1,0 +1,22 @@
+# Render Blueprint: New + -> Blueprint -> pick this repo.
+services:
+  - type: web
+    name: intervals-mcp
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m intervals_mcp
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: INTERVALS_API_KEY      # Intervals.icu -> Settings -> Developer Settings -> API key
+        sync: false
+      - key: INTERVALS_ATHLETE_ID   # e.g. i123456 (from your Intervals.icu profile URL)
+        sync: false
+      - key: CONNECTOR_PASSWORD     # you choose this; you'll type it once when connecting Claude
+        sync: false
+      - key: TOKEN_SECRET           # random signing key, generated for you
+        generateValue: true
